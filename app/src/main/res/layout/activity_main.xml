@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/decimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decimation Method:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
+
     <EditText
         android:id="@+id/sourceText"
         android:layout_width="wrap_content"
@@ -15,7 +26,18 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/decimation" />
+
+    <EditText
+        android:id="@+id/encryptedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sourceText" />
 
     <EditText
         android:id="@+id/key"
@@ -25,7 +47,18 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sourceText" />
+        app:layout_constraintTop_toBottomOf="@+id/encryptedText" />
+
+    <TextView
+        android:id="@+id/vigener"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vigener's algorithm:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/key" />
 
     <EditText
         android:id="@+id/sourceTextV"
@@ -36,7 +69,18 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/key" />
+        app:layout_constraintTop_toBottomOf="@+id/vigener" />
+
+    <EditText
+        android:id="@+id/encryptedTextV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sourceTextV" />
 
     <EditText
         android:id="@+id/keyV"
@@ -47,34 +91,48 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sourceTextV" />
+        app:layout_constraintTop_toBottomOf="@+id/encryptedTextV" />
 
     <Button
         android:id="@+id/cypherButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cypher"
-        app:layout_constraintTop_toBottomOf="@id/keyV"
+        android:layout_marginTop="16dp"
+        android:text="Encryption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/keyV" />
 
     <Button
         android:id="@+id/decryptionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Decryption"
-        app:layout_constraintTop_toBottomOf="@id/keyV"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toEndOf="@id/cypherButton"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/keyV" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Encrypted Text:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/decryptionButton" />
 
     <TextView
         android:id="@+id/cypherText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/cypherButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
         android:textSize="20sp"
        />
     <TextView
@@ -82,6 +140,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/cypherText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Decrypted Text:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cypherTextV" />
+
+    <TextView
+        android:id="@+id/decryptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text2"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/decryptionTextV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/decryptionText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="20sp"

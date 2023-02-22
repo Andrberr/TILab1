@@ -174,4 +174,12 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="20sp"
         />
+
+    <ImageButton
+        android:id="@+id/sourceUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/stat_sys_upload"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="49dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

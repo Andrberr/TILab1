@@ -1,11 +1,19 @@
 package com.example.ti1
 
+import android.annotation.SuppressLint
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +56,8 @@ class MainActivity : AppCompatActivity() {
 
     private val matrix = getMatrix()
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -93,6 +103,12 @@ class MainActivity : AppCompatActivity() {
             encryptedText = getStringInput(encryptedTextViewV.text.toString())
             val keyV = getStringInput(keyViewV.text.toString())
             decryptionTextViewV.text = getDecryptionTextV(encryptedText, keyV)
+        }
+
+        findViewById<ImageButton>(R.id.sourceUpload).setOnClickListener {
+            File(filesDir, "source.txt").writeText("АндРЕЙ")
+            val content = File(filesDir, "source.txt").readText()
+            sourceTextView.setText(content)
         }
     }
 

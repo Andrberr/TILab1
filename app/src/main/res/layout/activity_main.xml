@@ -176,10 +176,50 @@
         />
 
     <ImageButton
-        android:id="@+id/sourceUpload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/sourceDown"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        app:srcCompat="@android:drawable/stat_sys_download"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="30dp" />
+
+    <ImageButton
+        android:id="@+id/sourceUp"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
         app:srcCompat="@android:drawable/stat_sys_upload"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="49dp" />
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="393dp" />
+
+    <ImageButton
+        android:id="@+id/decryptionUp"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        app:srcCompat="@android:drawable/stat_sys_upload"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="477dp" />
+
+    <ImageButton
+        android:id="@+id/sourceDownV"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        app:srcCompat="@android:drawable/stat_sys_download"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="195dp" />
+
+    <ImageButton
+        android:id="@+id/decryptionDownV"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        app:srcCompat="@android:drawable/stat_sys_download"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <ImageButton
+        android:id="@+id/decryptionDown"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        app:srcCompat="@android:drawable/stat_sys_download"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="75dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import java.io.File
+import java.io.IOException
+import java.io.InputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -56,8 +58,6 @@ class MainActivity : AppCompatActivity() {
 
     private val matrix = getMatrix()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -105,10 +105,19 @@ class MainActivity : AppCompatActivity() {
             decryptionTextViewV.text = getDecryptionTextV(encryptedText, keyV)
         }
 
-        findViewById<ImageButton>(R.id.sourceUpload).setOnClickListener {
-            File(filesDir, "source.txt").writeText("АндРЕЙ")
-            val content = File(filesDir, "source.txt").readText()
-            sourceTextView.setText(content)
+        findViewById<ImageButton>(R.id.sourceDown).setOnClickListener {
+            val myInputStream: InputStream
+            val output: String
+            try {
+                myInputStream = assets.open("source.txt")
+                val size: Int = myInputStream.available()
+                val buffer = ByteArray(size)
+                myInputStream.read(buffer)
+                output = String(buffer)
+                sourceTextView.setText(output)
+            } catch (e: IOException) {
+                Toast.makeText(this, "Файл не найден!!!", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

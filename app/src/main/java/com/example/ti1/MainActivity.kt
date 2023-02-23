@@ -1,21 +1,10 @@
 package com.example.ti1
 
-import android.annotation.SuppressLint
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import java.io.File
-import java.io.IOException
-import java.io.InputStream
-import java.nio.file.Files
-import java.nio.file.Paths
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import java.io.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,47 +66,66 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.cypherButton).setOnClickListener {
             var sourceText = getStringInput(sourceTextView.text.toString())
             val strKey = keyView.text.toString()
+            var isEmpty = false
             if (strKey.isNotEmpty()) {
                 val key = strKey.toInt()
                 if (checkForMutuallySimple(key)) {
                     cypherTextView.text = getCypherText(sourceText, key)
                 } else Toast.makeText(this, "k и n не взаимно простые!!!", Toast.LENGTH_LONG).show()
-            } else Toast.makeText(this, "Поле с ключом пустое!!!", Toast.LENGTH_LONG).show()
+            } else isEmpty = true
 
-            sourceText = getStringInput(sourceTextViewV.text.toString())
             val keyV = getStringInput(keyViewV.text.toString())
-            cypherTextViewV.text = getCypherTextV(sourceText, keyV)
+            if (keyV.isNotEmpty()) {
+                sourceText = getStringInput(sourceTextViewV.text.toString())
+                cypherTextViewV.text = getCypherTextV(sourceText, keyV)
+            } else isEmpty = true
+            if (isEmpty) Toast.makeText(this, "Поле с ключом пустое!!!", Toast.LENGTH_LONG).show()
         }
 
         findViewById<Button>(R.id.decryptionButton).setOnClickListener {
             var encryptedText = getStringInput(encryptedTextView.text.toString())
             val strKey = keyView.text.toString()
-
+            var isEmpty = false
             if (strKey.isNotEmpty()) {
                 val key = strKey.toInt()
                 if (checkForMutuallySimple(key)) {
                     decryptionTextView.text = getDecryptionText(encryptedText, key)
                 } else Toast.makeText(this, "k и n не взаимно простые!!!", Toast.LENGTH_LONG).show()
-            } else Toast.makeText(this, "Поле с ключом пустое!!!", Toast.LENGTH_LONG).show()
+            } else isEmpty = true
 
-            encryptedText = getStringInput(encryptedTextViewV.text.toString())
             val keyV = getStringInput(keyViewV.text.toString())
-            decryptionTextViewV.text = getDecryptionTextV(encryptedText, keyV)
+            if (keyV.isNotEmpty()) {
+                encryptedText = getStringInput(encryptedTextViewV.text.toString())
+                decryptionTextViewV.text = getDecryptionTextV(encryptedText, keyV)
+            } else isEmpty = true
+
+            if (isEmpty) Toast.makeText(this, "Поле с ключом пустое!!!", Toast.LENGTH_LONG).show()
         }
 
         findViewById<ImageButton>(R.id.sourceDown).setOnClickListener {
-            val myInputStream: InputStream
-            val output: String
-            try {
-                myInputStream = assets.open("source.txt")
-                val size: Int = myInputStream.available()
-                val buffer = ByteArray(size)
-                myInputStream.read(buffer)
-                output = String(buffer)
-                sourceTextView.setText(output)
-            } catch (e: IOException) {
-                Toast.makeText(this, "Файл не найден!!!", Toast.LENGTH_LONG).show()
-            }
+            readFromFile("source.txt", sourceTextView)
+        }
+
+        findViewById<ImageButton>(R.id.shirfDown).setOnClickListener {
+            readFromFile("shifr.txt", encryptedTextView)
+        }
+
+        findViewById<ImageButton>(R.id.sourceDownV).setOnClickListener {
+            readFromFile("sourceV.txt", sourceTextViewV)
+        }
+
+        findViewById<ImageButton>(R.id.shifrDownV).setOnClickListener {
+            readFromFile("shifrV.txt", encryptedTextViewV)
+        }
+
+        findViewById<ImageButton>(R.id.sourceUp).setOnClickListener {
+            File(filesDir, "shifr.txt").writeText(cypherTextView.text.toString())
+            File(filesDir, "shifrV.txt").writeText(cypherTextViewV.text.toString())
+        }
+
+        findViewById<ImageButton>(R.id.shifrUp).setOnClickListener {
+            File(filesDir, "source.txt").writeText(decryptionTextView.text.toString())
+            File(filesDir, "sourceV.txt").writeText(decryptionTextViewV.text.toString())
         }
     }
 
@@ -206,5 +214,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return result
+    }
+
+    private fun readFromFile(file: String, view: EditText) {
+        val myInputStream: InputStream
+        val output: String
+        try {
+            myInputStream = assets.open(file)
+            val size: Int = myInputStream.available()
+            val buffer = ByteArray(size)
+            myInputStream.read(buffer)
+            output = String(buffer)
+            view.setText(output)
+        } catch (e: IOException) {
+            Toast.makeText(this, "Файл не найден!!!", Toast.LENGTH_LONG).show()
+        }
     }
 }

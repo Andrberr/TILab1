@@ -19,19 +19,21 @@
 
     <EditText
         android:id="@+id/sourceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/decimation" />
+        app:layout_constraintTop_toBottomOf="@id/decimation"
+        android:background="@drawable/bg_edit"/>
 
     <EditText
         android:id="@+id/encryptedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_edit"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -41,13 +43,15 @@
 
     <EditText
         android:id="@+id/key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/encryptedText" />
+        app:layout_constraintTop_toBottomOf="@+id/encryptedText"
+        android:background="@drawable/bg_edit"
+        android:maxLength="8"/>
 
     <TextView
         android:id="@+id/vigener"
@@ -62,36 +66,39 @@
 
     <EditText
         android:id="@+id/sourceTextV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vigener" />
+        app:layout_constraintTop_toBottomOf="@+id/vigener"
+        android:background="@drawable/bg_edit"/>
 
     <EditText
         android:id="@+id/encryptedTextV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sourceTextV" />
+        app:layout_constraintTop_toBottomOf="@id/sourceTextV"
+        android:background="@drawable/bg_edit"/>
 
     <EditText
         android:id="@+id/keyV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/encryptedTextV" />
+        app:layout_constraintTop_toBottomOf="@+id/encryptedTextV"
+        android:background="@drawable/bg_edit"/>
 
     <Button
         android:id="@+id/cypherButton"
@@ -179,47 +186,63 @@
         android:id="@+id/sourceDown"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        app:srcCompat="@android:drawable/stat_sys_download"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="30dp" />
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/sourceText"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_download" />
 
     <ImageButton
         android:id="@+id/sourceUp"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        app:srcCompat="@android:drawable/stat_sys_upload"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="393dp" />
+        app:layout_constraintEnd_toStartOf="@+id/text1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cypherButton"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
 
     <ImageButton
-        android:id="@+id/decryptionUp"
+        android:id="@+id/shifrUp"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        app:srcCompat="@android:drawable/stat_sys_upload"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="477dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/text2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sourceUp"
+        app:layout_constraintVertical_bias="0.178"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
 
     <ImageButton
         android:id="@+id/sourceDownV"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        app:srcCompat="@android:drawable/stat_sys_download"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="195dp" />
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toStartOf="@+id/sourceTextV"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shirfDown"
+        app:srcCompat="@android:drawable/stat_sys_download" />
 
     <ImageButton
-        android:id="@+id/decryptionDownV"
+        android:id="@+id/shifrDownV"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        app:srcCompat="@android:drawable/stat_sys_download"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="239dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/encryptedTextV"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sourceDownV"
+        app:srcCompat="@android:drawable/stat_sys_download" />
 
     <ImageButton
-        android:id="@+id/decryptionDown"
+        android:id="@+id/shirfDown"
         android:layout_width="42dp"
         android:layout_height="37dp"
-        app:srcCompat="@android:drawable/stat_sys_download"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="75dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/encryptedText"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sourceDown"
+        app:srcCompat="@android:drawable/stat_sys_download" />
 </androidx.constraintlayout.widget.ConstraintLayout>

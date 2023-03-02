@@ -135,22 +135,21 @@
 
     <TextView
         android:id="@+id/cypherText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="236dp"
+        android:layout_height="46dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
-        android:textSize="20sp"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
+
     <TextView
         android:id="@+id/cypherTextV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/cypherText"
+        android:layout_width="233dp"
+        android:layout_height="43dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/cypherText" />
 
     <TextView
         android:id="@+id/text2"
@@ -165,22 +164,21 @@
 
     <TextView
         android:id="@+id/decryptionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="233dp"
+        android:layout_height="44dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text2"
-        android:textSize="20sp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/text2" />
+
     <TextView
         android:id="@+id/decryptionTextV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/decryptionText"
+        android:layout_width="238dp"
+        android:layout_height="49dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/decryptionText" />
 
     <ImageButton
         android:id="@+id/sourceDown"
@@ -198,6 +196,7 @@
         android:layout_width="42dp"
         android:layout_height="37dp"
         app:layout_constraintEnd_toStartOf="@+id/text1"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cypherButton"
         app:srcCompat="@android:drawable/stat_sys_upload" />
@@ -208,9 +207,10 @@
         android:layout_height="37dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/text2"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sourceUp"
-        app:layout_constraintVertical_bias="0.178"
+        app:layout_constraintVertical_bias="0.17"
         app:srcCompat="@android:drawable/stat_sys_upload" />
 
     <ImageButton

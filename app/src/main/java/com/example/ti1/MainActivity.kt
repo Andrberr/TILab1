@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.io.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -64,42 +65,42 @@ class MainActivity : AppCompatActivity() {
         val decryptionTextViewV = findViewById<TextView>(R.id.decryptionTextV)
 
         findViewById<Button>(R.id.cypherButton).setOnClickListener {
-            var sourceText = getStringInput(sourceTextView.text.toString())
+            var sourceText = getStringInput(sourceTextView.text.toString(), true)
             val strKey = keyView.text.toString()
-            var isEmpty = false
             if (strKey.isNotEmpty()) {
                 val key = strKey.toInt()
                 if (checkForMutuallySimple(key)) {
-                    cypherTextView.text = getCypherText(sourceText, key)
+                    cypherTextView.text =
+                        decimationMethod(sourceText, key, true)
                 } else Toast.makeText(this, "k и n не взаимно простые!!!", Toast.LENGTH_LONG).show()
-            } else isEmpty = true
+            }
 
-            val keyV = getStringInput(keyViewV.text.toString())
+            val keyV = getStringInput(keyViewV.text.toString(), false)
             if (keyV.isNotEmpty()) {
-                sourceText = getStringInput(sourceTextViewV.text.toString())
+                sourceText = getStringInput(sourceTextViewV.text.toString(), true)
                 cypherTextViewV.text = getCypherTextV(sourceText, keyV)
-            } else isEmpty = true
-            if (isEmpty) Toast.makeText(this, "Поле с ключом пустое!!!", Toast.LENGTH_LONG).show()
+            }
         }
 
         findViewById<Button>(R.id.decryptionButton).setOnClickListener {
-            var encryptedText = getStringInput(encryptedTextView.text.toString())
+            var encryptedText = getStringInput(encryptedTextView.text.toString(), true)
             val strKey = keyView.text.toString()
-            var isEmpty = false
             if (strKey.isNotEmpty()) {
                 val key = strKey.toInt()
                 if (checkForMutuallySimple(key)) {
-                    decryptionTextView.text = getDecryptionText(encryptedText, key)
+                    decryptionTextView.text = decimationMethod(
+                        encryptedText,
+                        key,
+                        false
+                    )
                 } else Toast.makeText(this, "k и n не взаимно простые!!!", Toast.LENGTH_LONG).show()
-            } else isEmpty = true
+            }
 
-            val keyV = getStringInput(keyViewV.text.toString())
+            val keyV = getStringInput(keyViewV.text.toString(), false)
             if (keyV.isNotEmpty()) {
-                encryptedText = getStringInput(encryptedTextViewV.text.toString())
+                encryptedText = getStringInput(encryptedTextViewV.text.toString(), true)
                 decryptionTextViewV.text = getDecryptionTextV(encryptedText, keyV)
-            } else isEmpty = true
-
-            if (isEmpty) Toast.makeText(this, "Поле с ключом пустое!!!", Toast.LENGTH_LONG).show()
+            }
         }
 
         findViewById<ImageButton>(R.id.sourceDown).setOnClickListener {
@@ -129,12 +130,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getStringInput(text: String): String {
+    private fun getStringInput(text: String, isSpace: Boolean): String {
         var input = ""
         for (i in text.indices) {
             if (alphabet.indexOf(text[i]) != -1 || (text[i] in 'А'..'Я') || text[i] == 'Ё') {
                 input += text[i].lowercase()
             }
+            if (isSpace && text[i] == ' ') input += text[i]
         }
         return input
     }
@@ -151,21 +153,37 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    private fun getCypherText(sourceText: String, key: Int): String {
-        //Ek(i) = (i*k) mod n
-        var result = ""
-        for (element in sourceText) {
-            result += alphabet[(alphabet.indexOf(element) * key) % n]
+
+    private fun getMultiplicativeInverse(key: Int): Int {
+        var i = 1
+        while ((key * i) % alphabet.size != 1) {
+            i++
         }
-        return result
+        return i
     }
 
-    private fun getDecryptionText(cypherText: String, key: Int): String {
-        var result = ""
-        for (element in cypherText) {
-            result += alphabet[(alphabet.indexOf(element) / key) % n]
+    private fun decimationMethod(input: String, key: Int, isEncryption: Boolean): String? {
+        val result = StringBuilder()
+        val newAlphabet = StringBuilder()
+
+        //создание таблицы подстановки
+        if (isEncryption) {
+            for (i in alphabet.indices) {
+                newAlphabet.append(alphabet[(i * key % alphabet.size)])
+            }
+        } else {
+            val multiplicationInverse = getMultiplicativeInverse(key)
+            for (i in alphabet.indices) {
+                newAlphabet.append(alphabet[(multiplicationInverse * i % alphabet.size)])
+            }
         }
-        return result
+        println(newAlphabet)
+        //преобразование исходного текста в соответствии с таблицей подстановки
+        for (ch in input) {
+            if (alphabet.indexOf(ch) == -1) result.append(ch)
+            else result.append(newAlphabet[alphabet.indexOf(ch)])
+        }
+        return result.toString()
     }
 
     private fun getMatrix(): Array<Array<Char>> {
@@ -191,25 +209,39 @@ class MainActivity : AppCompatActivity() {
 
     private fun getCypherTextV(sourceText: String, key: String): String {
         val table = Array(2) { Array(sourceText.length) { ' ' } }
-        for (i in sourceText.indices) {
-            table[0][i] = sourceText[i]
-            table[1][i] = key[i % key.length]
+        var i=0
+        var k = 0
+        while (i < sourceText.length) {
+            if (alphabet.indexOf(sourceText[i]) != -1) {
+                table[0][i] = sourceText[i]
+                table[1][i] = key[k % key.length]
+                k++
+            }
+            i++
         }
 
         var result = ""
         for (i in sourceText.indices) {
-            result += matrix[alphabet.indexOf(table[1][i])][alphabet.indexOf(table[0][i])]
+            result += if (alphabet.indexOf(sourceText[i]) != -1) matrix[alphabet.indexOf(table[1][i])][alphabet.indexOf(
+                table[0][i]
+            )]
+            else sourceText[i]
         }
         return result
     }
 
     private fun getDecryptionTextV(cypherText: String, key: String): String {
         var result = ""
+        var k=0
         for (i in cypherText.indices) {
-            val ind = alphabet.indexOf(key[i % key.length])
-            for (j in alphabet.indices) {
-                if (matrix[ind][j] == cypherText[i]) {
-                    result += alphabet[j]
+            if (alphabet.indexOf(cypherText[i]) == -1) result += cypherText[i]
+            else {
+                val ind = alphabet.indexOf(key[k % key.length])
+                k++
+                for (j in alphabet.indices) {
+                    if (matrix[ind][j] == cypherText[i]) {
+                        result += alphabet[j]
+                    }
                 }
             }
         }
